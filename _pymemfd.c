@@ -76,14 +76,14 @@ _pymemfd_memfd_create_impl(PyModuleDef *module, char *name, int flags)
 
     if (flags < 0 || flags > UINT32_MAX) {
         PyErr_SetString(PyExc_ValueError, "flags out of range");
-        return NULL;
+        return -1;
     }
 
     fd = _pymemfd_syscall_memfd_create(name, (unsigned int)flags);
 
     if (fd < 0) {
         PyErr_SetFromErrno(PyExc_OSError);
-        return NULL;
+        return -1;
     }
     return fd;
 }
